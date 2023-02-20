@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/19 17:32:09 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:22:51 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ft_atoi(const char *str);
 /*			philo_utils.c		*/
 int			free_everything(t_fork *lst, int error);
 long long	timeInMilliseconds(void);
-int			print_action(t_data data, int philo, int type);
+int			print_action(t_data *data, int philo, int type);
 
 
 /*			philo.c				*/

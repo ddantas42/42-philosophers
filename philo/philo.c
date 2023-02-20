@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/19 17:44:37 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:23:57 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@ void	*thread(void *param)
 
 	int	n = 5;
 	pthread_mutex_lock(&(data->writing));
+
 	philo = data->forks++;
 	pthread_mutex_unlock(&(data->writing));
 
 	while (n--)
 	{
-		print_action(*data, philo, EATING);
+
+		print_action(data, philo, EATING);
 		usleep(data->t_eat * 1000);
-		print_action(*data, philo, SLEEPING);
+		print_action(data, philo, SLEEPING);
 		usleep(data->t_sleep * 1000);
-		print_action(*data, philo, THINKING);
-		usleep(1000 * 1000);
+		print_action(data, philo, THINKING);
+		usleep(data->t_die * 1000);
 
 	}
-	print_action(*data, philo, DIED);
+	print_action(data, philo, DIED);
 	return (0);
 }
 
 int	init_table(t_data *data, int ac, char **av)
 {
-	struct timeval	ct;
-
 	data->philosophers = ft_atoi(av[1]);
 	if (data->philosophers < 1)
 		return (1);
@@ -61,9 +61,6 @@ int	init_table(t_data *data, int ac, char **av)
 		if (data->must_eat < 1)
 			return (1);
 	}
-	if (gettimeofday(&ct, NULL) != 0)
-		return (1);
-	data->init_time = 1000 * ct.tv_usec + ct.tv_usec / 1000;
 	return (0);
 }
 

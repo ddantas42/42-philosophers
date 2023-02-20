@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/19 17:47:32 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/20 15:22:42 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ long long	timeInMilliseconds(void)
     return (((long long)tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
 }
 
-int	print_action(t_data data, int philo, int type)
+int	print_action(t_data *data, int philo, int type)
 {
-	pthread_mutex_lock(&(data.writing));
-	printf("%lld ", timeInMilliseconds() - data.init_time);
+	pthread_mutex_lock(&(data->writing));
+	printf("%d ", (int)(timeInMilliseconds() - data->init_time));
 	printf("%d ", philo);
 	if (type == FORK)
 		printf("has taken a fork\n");
@@ -50,6 +50,6 @@ int	print_action(t_data data, int philo, int type)
 		printf("is thinking\n");
 	else if (type == DIED)	
 		printf("died\n");
-	pthread_mutex_unlock(&(data.writing));
+	pthread_mutex_unlock(&(data->writing));
 	return (0);
 }
