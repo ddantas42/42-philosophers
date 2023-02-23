@@ -1,2 +1,6 @@
 *.o
 *.txt
+./philo/vscode
+.DS_store
+philo/philo
+*.json

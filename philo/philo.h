@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/20 15:22:51 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:48:47 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,14 @@
 
 typedef struct fork_lst
 {
-	int				philosopher;
+	int				philo;
 	int				fork;
-	int				pos;
 	struct fork_lst	*next;
-	struct fork_lst	*prev;
 }				t_fork;
 
 typedef struct philo_data {
 	int				philosophers;
+	int				philo_thread;
 	int				forks;
 	int				t_die;
 	int				t_eat;
@@ -46,7 +45,7 @@ typedef struct philo_data {
 	long long		init_time;
 	int				test;
 	pthread_mutex_t	writing;
-	t_fork			fork_lst;
+	t_fork			*fork_lst;
 }				t_data;
 
 /*			atoi.c				*/
@@ -61,7 +60,9 @@ int			print_action(t_data *data, int philo, int type);
 
 
 /*			philo.c				*/
+
 void		*thread(void *param);
+t_fork		*init_lst(t_fork *lst, int philo);
 int			init_table(t_data *data, int ac, char **av);
 int			init_threads(t_data *data);
 
