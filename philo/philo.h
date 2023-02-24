@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 00:00:36 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:42:49 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 typedef struct phil_lst
 {
 	int				philo;
-	int				fork;
+	int				ate;
 	struct phil_lst	*next;
 }				t_philo;
 
@@ -59,6 +59,7 @@ int			ft_atoi(const char *str);
 /*			philo_action.c		*/
 int			print_action(t_data *data, int philo, int type);
 void		seek_fork(t_data *data, int philo);
+void		put_fork_back(t_data *data, int philo);
 
 /*			philo_utils.c		*/
 int			free_everything(t_data *data, int error);
@@ -66,6 +67,10 @@ long long	timeinmilliseconds(void);
 t_philo		*init_lst(t_philo *lst, int philo);
 int			init_table(t_data *data, int ac, char **av);
 int			init_threads(t_data *data);
+
+/*			philo_utils.c		*/
+int			wait(t_data *data, int time_ms);
+int			ate_enough(t_data *data, int current_philo);
 
 /*			philo.c				*/
 void		*thread(void *arg);

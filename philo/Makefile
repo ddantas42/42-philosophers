@@ -6,7 +6,7 @@
 #    By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 11:56:38 by ddantas-          #+#    #+#              #
-#    Updated: 2023/02/23 22:57:45 by ddantas-         ###   ########.fr        #
+#    Updated: 2023/02/24 10:43:28 by ddantas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ CFLAGS = -g -pthread -Wall -Wextra #-Werror
 NAME = philo
 RM = rm
 
-FILESC = philo.c ft_atoi.c philo_utils.c philo_action.c
+FILESC = philo.c ft_atoi.c philo_utils.c philo_action.c \
+		philo_utils_2.c
 
 OBJS = $(FILESC:.c=.o)
 

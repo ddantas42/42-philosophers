@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:49:43 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/23 23:02:19 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:08:00 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ft_atoi(const char *str)
 		else if (str[n] >= 48 && str[n] <= 57)
 			c = (c * 10) + (str[n] - 48);
 		else
-			break ;
+			return (-1);
 		n++;
 	}
 	return (c * s);

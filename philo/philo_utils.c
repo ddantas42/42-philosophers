@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 00:02:13 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/24 11:52:52 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	free_everything(t_data *data, int error)
 	n = 0;
 	while (n <= data->thread - 1)
 		pthread_mutex_destroy(&(data->fork)[n++]);
+	if (data->id != NULL)
+		free(data->id);
 	if (error)
 		return (1);
 	return (0);
@@ -57,7 +59,7 @@ t_philo	*init_lst(t_philo *lst, int philo)
 			free(new);
 			return ((t_philo *)1);
 		}
-		new->fork = n;
+		new->ate = 0;
 		new->philo = n;
 		new->next = NULL;
 		if (temp != NULL)
@@ -88,6 +90,8 @@ int	init_table(t_data *data, int ac, char **av)
 		if (data->must_eat < 1)
 			return (1);
 	}
+	else
+		data->must_eat = -1;
 	data->status = ALIVE;
 	return (0);
 }
@@ -118,5 +122,6 @@ int	init_threads(t_data *data)
 	while (n < data->philosophers)
 		pthread_join((data->id)[n++], NULL);
 	free(data->id);
+	data->id = NULL;
 	return (0);
 }
