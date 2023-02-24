@@ -6,73 +6,117 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/22 10:43:10 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:02:13 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	free_everything(t_fork *lst, int error)
+int	free_everything(t_data *data, int error)
 {
-	t_fork	*temp;
+	t_philo	*temp;
+	int		n;
 
-	while (lst != NULL)
+	while (data->philo_lst != NULL)
 	{
-		temp = lst;
-		lst = lst->next;
-		free(temp); 
+		temp = data->philo_lst;
+		data->philo_lst = data->philo_lst->next;
+		free(temp);
 	}
+	n = 0;
+	while (n <= data->thread - 1)
+		pthread_mutex_destroy(&(data->fork)[n++]);
 	if (error)
 		return (1);
 	return (0);
 }
 
-long long	timeInMilliseconds(void)
+long long	timeinmilliseconds(void)
 {
-    struct timeval tv;
+	struct timeval	tv;
 
-    gettimeofday(&tv,NULL);
-    return (((long long)tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
+	gettimeofday(&tv, NULL);
+	return ((((long long)tv.tv_sec) * 1000) + (tv.tv_usec / 1000));
 }
 
-int	print_action(t_data *data, int philo, int type)
+t_philo	*init_lst(t_philo *lst, int philo)
 {
-	pthread_mutex_lock(&(data->writing));
-	printf("%lld ", (timeInMilliseconds() - data->init_time));
-	printf("%d ", philo);
-	if (type == FORK)
-		printf("has taken a fork\n");
-	else if (type == EATING)	
-		printf("is eating\n");
-	else if (type == SLEEPING)	
-		printf("is sleeping\n");
-	else if (type == THINKING)	
-		printf("is thinking\n");
-	else if (type == DIED)	
-		printf("died\n");
-	pthread_mutex_unlock(&(data->writing));
-	return (0);
-}
-/*
-t_data	*ft_add_alst(t_data **alst, t_data *blst, int atoi)
-{
-	t_data	*new;
-	t_data	*temp;
+	int		n;
+	t_philo	*new;
+	t_philo	*temp;
 
-	temp = *alst;
-	while (temp != NULL && temp->next != NULL)
-		temp = temp->next;
-	new = (t_data *)malloc(sizeof(t_data));
-	if (!new)
+	n = 0;
+	while (n++ < philo)
 	{
-		free(new);
-		//shutdown
+		temp = lst;
+		while (temp != NULL && temp->next != NULL)
+			temp = temp->next;
+		new = (t_philo *)malloc(sizeof(t_philo));
+		if (!new)
+		{
+			free(new);
+			return ((t_philo *)1);
+		}
+		new->fork = n;
+		new->philo = n;
+		new->next = NULL;
+		if (temp != NULL)
+			temp->next = new;
+		else
+			lst = new;
 	}
-	new->data = atoi;
-	new->next = NULL;
-	if (temp != NULL)
-		temp->next = new;
-	else
-		*alst = new;
+	return (lst);
+}
+
+int	init_table(t_data *data, int ac, char **av)
+{
+	data->philosophers = ft_atoi(av[1]);
+	if (data->philosophers < 1)
+		return (1);
+	data->t_die = ft_atoi(av[2]);
+	if (data->t_die < 1)
+		return (1);
+	data->t_eat = ft_atoi(av[3]);
+	if (data->t_eat < 1)
+		return (1);
+	data->t_sleep = ft_atoi(av[4]);
+	if (data->t_sleep < 1)
+		return (1);
+	if (ac == 6)
+	{
+		data->must_eat = ft_atoi(av[5]);
+		if (data->must_eat < 1)
+			return (1);
+	}
+	data->status = ALIVE;
 	return (0);
-}*/
+}
+
+int	init_threads(t_data *data)
+{
+	int	n;
+
+	if (pthread_mutex_init(&(data->writing), NULL) != 0)
+		return (1);
+	n = 0;
+	data->id = (pthread_t *)malloc(sizeof(pthread_t) * data->philosophers);
+	if (!(data->id))
+	{
+		free(data->id);
+		return (1);
+	}
+	while (n < data->philosophers)
+	{
+		data->thread = n + 1;
+		if (pthread_mutex_init(&(data->fork[n]), NULL) != 0)
+			return (1);
+		if (pthread_create(&(data->id)[n++], NULL, &thread, data) != 0)
+			return (1);
+		usleep(100);
+	}
+	n = 0;
+	while (n < data->philosophers)
+		pthread_join((data->id)[n++], NULL);
+	free(data->id);
+	return (0);
+}
