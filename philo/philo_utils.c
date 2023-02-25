@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 11:52:52 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:39:44 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	free_everything(t_data *data, int error)
 		pthread_mutex_destroy(&(data->fork)[n++]);
 	if (data->id != NULL)
 		free(data->id);
+	pthread_mutex_destroy(&(data->writing));
 	if (error)
 		return (1);
 	return (0);
@@ -96,10 +97,8 @@ int	init_table(t_data *data, int ac, char **av)
 	return (0);
 }
 
-int	init_threads(t_data *data)
+int	init_threads(t_data *data, int n)
 {
-	int	n;
-
 	if (pthread_mutex_init(&(data->writing), NULL) != 0)
 		return (1);
 	n = 0;
@@ -120,7 +119,10 @@ int	init_threads(t_data *data)
 	}
 	n = 0;
 	while (n < data->philosophers)
+	{
+		usleep(10);
 		pthread_join((data->id)[n++], NULL);
+	}
 	free(data->id);
 	data->id = NULL;
 	return (0);

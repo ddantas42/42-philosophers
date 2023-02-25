@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 15:48:55 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:17:44 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,15 @@ int	print_action(t_data *data, int philo, int type)
 	if (type == HIS)
 		printf("has %d fork\n", philo);
 	if (type == NEXT)
-		printf("has %d fork\n", philo + 1);
+	{
+		if (philo == data->philosophers)
+			printf("has %d fork\n",1);
+		else
+			printf("has %d fork\n", philo + 1);
+	}
 	
-	//if (type == FORK)
-	//	printf("has taken a fork\n");
+	if (type == FORK)
+		printf("has taken a fork\n");
 	else if (type == EATING)
 		printf("is eating\n");
 	else if (type == SLEEPING)
@@ -37,7 +42,7 @@ int	print_action(t_data *data, int philo, int type)
 	else if (type == DIED)
 	{
 		printf("died\n");
-		data->status = type;
+		data->status = DIED;
 	}
 	pthread_mutex_unlock(&(data->writing));
 	return (0);
@@ -57,7 +62,7 @@ void	seek_fork(t_data *data, int philo)
 		return ;
 	}
 	usleep(50);
-	if (philo == data->philosophers)	
+	if (philo == data->philosophers)
 		pthread_mutex_lock(&(data->fork[0]));
 	else
 		pthread_mutex_lock(&(data->fork[philo]));

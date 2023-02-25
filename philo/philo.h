@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 15:46:09 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:40:25 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define HIS 7
 # define NEXT 8
 
-# define TIME 900
+# define TIME 890
 
 typedef struct phil_lst
 {
@@ -71,7 +71,7 @@ int			free_everything(t_data *data, int error);
 long long	timeinmilliseconds(void);
 t_philo		*init_lst(t_philo *lst, int philo);
 int			init_table(t_data *data, int ac, char **av);
-int			init_threads(t_data *data);
+int			init_threads(t_data *data, int n);
 
 /*			philo_utils.c		*/
 int			wait(t_data *data, int time_ms);

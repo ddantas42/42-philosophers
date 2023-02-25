@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:40:18 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/24 15:49:07 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/02/25 16:20:33 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,23 @@ int	ate_enough(t_data *data, int current_philo)
 {
 	t_philo	*temp;
 
+	if (data->status == DIED)
+		return (1);
+	if (data->must_eat < 0)
+		return (0);
 	temp = data->philo_lst;
-	while (current_philo < temp->philo)
+	while (current_philo > temp->philo)
 		temp = temp->next;
 	temp->ate++;
-	if (temp->ate >= data->must_eat)
-		return (1);
-	return (0);
+	temp = data->philo_lst;
+	while (temp)
+	{
+
+		if (temp->ate < data->must_eat)
+			return (0);
+		temp = temp->next;
+	}
+	put_fork_back(data, current_philo);
+	data->status = DIED;	
+	return (1);	
 }
