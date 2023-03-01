@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/25 16:40:25 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:43:51 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@
 # define DIED 5
 # define ALIVE 6
 
-# define HIS 7
-# define NEXT 8
-
-# define TIME 890
+# define TIME 900
 
 typedef struct phil_lst
 {
 	int				philo;
 	int				ate;
+	int				last_ate;
 	struct phil_lst	*next;
 }				t_philo;
 
@@ -74,7 +72,9 @@ int			init_table(t_data *data, int ac, char **av);
 int			init_threads(t_data *data, int n);
 
 /*			philo_utils.c		*/
-int			wait(t_data *data, int time_ms);
+int			last_action(t_data *data, int philo);
+long long	meal_handler(t_data *data, int philo, int check);
+//int			wait(t_data *data, int time_ms);
 int			ate_enough(t_data *data, int current_philo);
 
 /*			philo.c				*/

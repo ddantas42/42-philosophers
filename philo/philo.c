@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/02/25 17:01:26 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:46:10 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	*thread(void *arg)
 	data = ((t_data *) arg);
 	data->init_time = timeinmilliseconds();
 	current_philo = data->thread;
+
 	while (data->status == ALIVE)
 	{
-
+		
 		seek_fork(data, current_philo);
 		if (print_action(data, current_philo, EATING))
 			return (0);
@@ -34,6 +35,8 @@ void	*thread(void *arg)
 		if (print_action(data, current_philo, SLEEPING))
 			return (0);
 		usleep(data->t_sleep * 1000);
+		if (meal_handler(data, current_philo, 0))
+			return (0);
 		//wait(data, data->t_sleep);
 		if (print_action(data, current_philo, THINKING))
 			return (0);
