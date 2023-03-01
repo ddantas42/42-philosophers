@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/01 16:00:12 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:12:17 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	print_action(t_data *data, int philo, int type)
 {
-	if (data->status == DIED)
-		return (1);
 	pthread_mutex_lock(&(data->writing));
+	if (data->status == DIED)
+	{
+		pthread_mutex_unlock(&(data->writing));
+		return (1);
+	}
 	printf("%lld ", (timeinmilliseconds() - data->init_time));
 	data->init_time = data->init_time;
 	printf("%d ", philo);
@@ -36,7 +39,6 @@ int	print_action(t_data *data, int philo, int type)
 	pthread_mutex_unlock(&(data->writing));
 	return (0);
 }
-
 
 void	seek_fork(t_data *data, int philo)
 {
@@ -69,5 +71,4 @@ void	put_fork_back(t_data *data, int philo)
 		pthread_mutex_unlock(&(data->fork[0]));
 	else
 		pthread_mutex_unlock(&(data->fork[philo]));
-
 }

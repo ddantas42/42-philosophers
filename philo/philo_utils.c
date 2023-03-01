@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/01 15:40:18 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:04:06 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,10 @@ int	free_everything(t_data *data, int error)
 	}
 	n = 0;
 	while (n <= data->thread - 1)
-	{
-		pthread_mutex_unlock(&(data->fork)[n]);
 		pthread_mutex_destroy(&(data->fork)[n++]);
-	}
+	pthread_mutex_destroy(&(data->writing));
 	if (data->id != NULL)
 		free(data->id);
-	pthread_mutex_destroy(&(data->writing));
 	if (error)
 		return (1);
 	return (0);
