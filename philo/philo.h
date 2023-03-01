@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/01 15:43:51 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:51:58 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			init_threads(t_data *data, int n);
 /*			philo_utils.c		*/
 int			last_action(t_data *data, int philo);
 long long	meal_handler(t_data *data, int philo, int check);
+int			philo_sleep(t_data *data, int philo, int time_ms);
 //int			wait(t_data *data, int time_ms);
 int			ate_enough(t_data *data, int current_philo);
 
