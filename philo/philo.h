@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 11:08:33 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/02 15:05:15 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ typedef struct phil_lst
 {
 	int				philo;
 	int				ate;
-	int				last_ate;
+	long long		last_ate;
 	struct phil_lst	*next;
 }				t_philo;
 
 typedef struct philo_data {
 	int				philosophers;
 	int				thread;
+	int				dead_philo;
 	int				status;
 	int				t_die;
 	int				t_eat;
@@ -74,8 +75,7 @@ int			init_threads(t_data *data, int n);
 /*			philo_utils.c		*/
 int			last_action(t_data *data, int philo);
 long long	meal_handler(t_data *data, int philo, int check);
-int			philo_sleep(t_data *data, int philo);
-//int			wait(t_data *data, int time_ms);
+int			philo_prep(t_data *data, int philo, int type);
 int			ate_enough(t_data *data, int current_philo);
 
 /*			philo.c				*/

@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 11:05:19 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:42:42 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	*thread(void *arg)
 		seek_fork(data, current_philo);
 		if (print_action(data, current_philo, EATING))
 			return (0);
+		if (philo_prep(data, current_philo, EATING))
+			return (0);
 		usleep(data->t_eat * 1000);
-		//wait(data, data->t_eat);
+		put_fork_back(data, current_philo);
 		if (ate_enough(data, current_philo))
 			return (0);
-		put_fork_back(data, current_philo);
 		if (print_action(data, current_philo, SLEEPING))
 			return (0);
-		if (philo_sleep(data, current_philo))
+		if (philo_prep(data, current_philo, SLEEPING))
 			return (0);
 		usleep(data->t_sleep * 1000);
-		//wait(data, data->t_sleep);
 		if (meal_handler(data, current_philo, 0))
 			return (0);
 		if (print_action(data, current_philo, THINKING))

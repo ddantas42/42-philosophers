@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 11:08:51 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/02 14:43:48 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	init_table(t_data *data, int ac, char **av)
 	else
 		data->must_eat = -1;
 	data->status = ALIVE;
+	data->dead_philo = 0;
 	return (0);
 }
 
@@ -121,9 +122,20 @@ int	init_threads(t_data *data, int n)
 	n = 0;
 	while (n < data->philosophers)
 	{
-		usleep(10);
+		usleep(50);
 		pthread_join((data->id)[n++], NULL);
 	}
+	/*n = 0;
+	while (n < data->philosophers)
+	{
+		usleep(50);
+		if (n + 1 == data->dead_philo)
+		{
+			n++;
+			continue ;
+		}
+		pthread_detach((data->id)[n++]);
+	}*/
 	free(data->id);
 	data->id = NULL;
 	return (0);
