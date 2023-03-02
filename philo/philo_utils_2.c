@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:40:18 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/01 20:55:52 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:03:22 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ long long	meal_handler(t_data *data, int philo, int check)
 	return (0);
 }
 
-int	philo_sleep(t_data *data, int philo, int time_ms)
+int	philo_sleep(t_data *data, int philo)
 {
 	t_philo		*temp;
 
