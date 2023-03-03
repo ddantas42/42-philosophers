@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 14:43:48 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:08:59 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ t_philo	*init_lst(t_philo *lst, int philo)
 			temp = temp->next;
 		new = (t_philo *)malloc(sizeof(t_philo));
 		if (!new)
-		{
-			free(new);
 			return ((t_philo *)1);
-		}
 		new->ate = 0;
 		new->last_ate = 0;
 		new->philo = n;
@@ -106,10 +103,7 @@ int	init_threads(t_data *data, int n)
 	n = 0;
 	data->id = (pthread_t *)malloc(sizeof(pthread_t) * data->philosophers);
 	if (!(data->id))
-	{
-		free(data->id);
 		return (1);
-	}
 	while (n < data->philosophers)
 	{
 		data->thread = n + 1;
@@ -125,17 +119,6 @@ int	init_threads(t_data *data, int n)
 		usleep(50);
 		pthread_join((data->id)[n++], NULL);
 	}
-	/*n = 0;
-	while (n < data->philosophers)
-	{
-		usleep(50);
-		if (n + 1 == data->dead_philo)
-		{
-			n++;
-			continue ;
-		}
-		pthread_detach((data->id)[n++]);
-	}*/
 	free(data->id);
 	data->id = NULL;
 	return (0);

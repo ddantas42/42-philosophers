@@ -6,11 +6,25 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 14:42:42 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:12:19 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	thread_2(t_data *data, int current_philo)
+{
+	if (print_action(data, current_philo, SLEEPING))
+		return (1);
+	if (philo_prep(data, current_philo, SLEEPING))
+		return (1);
+	usleep(data->t_sleep * 1000);
+	if (meal_handler(data, current_philo, 0))
+		return (1);
+	if (print_action(data, current_philo, THINKING))
+		return (1);
+	return (0);
+}
 
 void	*thread(void *arg)
 {
@@ -31,14 +45,7 @@ void	*thread(void *arg)
 		put_fork_back(data, current_philo);
 		if (ate_enough(data, current_philo))
 			return (0);
-		if (print_action(data, current_philo, SLEEPING))
-			return (0);
-		if (philo_prep(data, current_philo, SLEEPING))
-			return (0);
-		usleep(data->t_sleep * 1000);
-		if (meal_handler(data, current_philo, 0))
-			return (0);
-		if (print_action(data, current_philo, THINKING))
+		if (thread_2(data, current_philo))
 			return (0);
 	}
 	return (0);

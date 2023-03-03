@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:40:18 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 15:04:54 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/03 15:56:42 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ long long	meal_handler(t_data *data, int philo, int check)
 		temp->last_ate = (timeinmilliseconds() - data->init_time);
 		return (0);
 	}
-	if ((long long)(timeinmilliseconds() - data->init_time - temp->last_ate) >= data->t_die)
+	if ((long long)(timeinmilliseconds() \
+		- data->init_time - temp->last_ate) >= data->t_die)
 	{
 		print_action(data, philo, DIED);
 		return (1);
@@ -53,7 +54,8 @@ int	philo_prep(t_data *data, int philo, int type)
 		print_action(data, philo, DIED);
 		return (1);
 	}
-	else if (type == SLEEPING && data->status == ALIVE && data->t_die < data->t_sleep + data->t_eat)
+	else if (type == SLEEPING && data->status == ALIVE \
+			&& data->t_die < data->t_sleep + data->t_eat)
 	{
 		temp = data->philo_lst;
 		while (temp && temp->philo != philo)

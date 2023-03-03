@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/02 15:05:15 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/03 16:12:33 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			ft_atoi(const char *str);
 
 /*			philo_action.c		*/
 int			print_action(t_data *data, int philo, int type);
+void		seek_fork_2(t_data *data, int philo);
 void		seek_fork(t_data *data, int philo);
 void		put_fork_back(t_data *data, int philo);
 
@@ -79,6 +80,7 @@ int			philo_prep(t_data *data, int philo, int type);
 int			ate_enough(t_data *data, int current_philo);
 
 /*			philo.c				*/
+int			thread_2(t_data *data, int current_philo);
 void		*thread(void *arg);
 
 #endif
