@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/03 16:12:33 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/04 11:15:57 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define DIED 5
 # define ALIVE 6
 
-# define TIME 900
+# define TIME (timeinmilliseconds() - data->init_time)
 
 typedef struct phil_lst
 {
@@ -62,7 +62,7 @@ int			ft_atoi(const char *str);
 
 /*			philo_action.c		*/
 int			print_action(t_data *data, int philo, int type);
-void		seek_fork_2(t_data *data, int philo);
+void		seek_fork_2(t_data *data, int philo, int n);
 void		seek_fork(t_data *data, int philo);
 void		put_fork_back(t_data *data, int philo);
 
