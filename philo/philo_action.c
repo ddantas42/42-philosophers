@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/04 14:11:46 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:33:48 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	seek_fork_2(t_data *data, int philo, int n)
 	if (philo == data->philosophers)
 	{
 		pthread_mutex_lock(&(data->fork[0]));
-		if (data->status == DIED)
+		if (data->status == DIED || meal_handler(data, philo, 0))
 		{
 			put_fork_back(data, philo);
 			return ;
@@ -57,7 +57,7 @@ void	seek_fork_2(t_data *data, int philo, int n)
 	else
 	{
 		pthread_mutex_lock(&(data->fork[philo]));
-		if (data->status == DIED)
+		if (data->status == DIED || meal_handler(data, philo, 0))
 		{
 			put_fork_back(data, philo);
 			return ;
@@ -89,7 +89,7 @@ void	seek_fork(t_data *data, int philo)
 	if (n)
 		seek_fork_2(data, philo, n);
 	pthread_mutex_lock(&(data->fork[philo - 1]));
-	if (data->status == DIED)
+	if (data->status == DIED || meal_handler(data, philo, 0))
 	{
 		pthread_mutex_unlock(&(data->fork[philo - 1]));
 		return ;

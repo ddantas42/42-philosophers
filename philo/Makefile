@@ -6,12 +6,12 @@
 #    By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/15 11:56:38 by ddantas-          #+#    #+#              #
-#    Updated: 2023/02/24 10:43:28 by ddantas-         ###   ########.fr        #
+#    Updated: 2023/03/05 16:30:44 by ddantas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -g -pthread -Wall -Wextra #-Werror
+CFLAGS = -pthread -Wall -Wextra #-Werror
 NAME = philo
 RM = rm
 

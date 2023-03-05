@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:40:18 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/04 14:30:52 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:34:08 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ long long	meal_handler(t_data *data, int philo, int check)
 	}
 	if (data->status == ALIVE && (long long)(TIME - temp->last_ate) >= data->t_die)
 	{
-		printf("philo %d last ate = %lld\n", philo, temp->last_ate);
 		print_action(data, philo, DIED);
 		return (1);
 	}
