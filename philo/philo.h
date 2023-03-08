@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/04 11:15:57 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:50:35 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int			philo_prep(t_data *data, int philo, int type);
 int			ate_enough(t_data *data, int current_philo);
 
 /*			philo.c				*/
+void		*death_checker(void *arg);
 int			thread_2(t_data *data, int current_philo);
 void		*thread(void *arg);
 

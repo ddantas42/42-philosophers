@@ -6,11 +6,27 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/05 16:13:27 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:05:14 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*death_checker(void *arg)
+{
+	t_data	*data;
+	t_philo	*temp;
+
+	data = (t_data *)arg;
+	temp = data->philo_lst;
+	while (data->status == ALIVE)
+	{
+		if (!temp)
+			temp = data->philo_lst;
+		meal_handler(data, temp->philo, 0);
+		temp = temp->next;
+	}	
+}
 
 int	thread_2(t_data *data, int current_philo)
 {
