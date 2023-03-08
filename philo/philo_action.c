@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:10:03 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:13:48 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	print_action(t_data *data, int philo, int type)
 	if (data->status == DIED)
 	{
 		pthread_mutex_unlock(&(data->writing));
-		if (data->status == DIED)
-			return (1);
-		else
-			return (0);
+		return (1);
 	}
 	printf("%lld ", TIME);
 	printf("%d ", philo);
@@ -43,7 +40,7 @@ int	print_action(t_data *data, int philo, int type)
 	return (0);
 }
 
-void	seek_fork_2(t_data *data, int philo, int n)
+void	seek_fork_2(t_data *data, int philo)
 {
 	if (philo == data->philosophers)
 	{
@@ -64,14 +61,12 @@ void	seek_fork_2(t_data *data, int philo, int n)
 		}
 	}
 	print_action(data, philo, FORK);
-	if (n == 0 && (data->status == DIED || meal_handler(data, philo, 1)))
+	if (data->status == DIED || meal_handler(data, philo, 1))
 		put_fork_back(data, philo);
 }
 
 void	seek_fork(t_data *data, int philo)
 {
-	int n;
-
 	if (data->philosophers == 1)
 	{
 		print_action(data, philo, FORK);
@@ -82,12 +77,6 @@ void	seek_fork(t_data *data, int philo)
 	if (data->status == DIED || meal_handler(data, philo, 2))
 		return ;
 	usleep(100);
-	if (philo % 2)
-		n = 0;
-	else
-		n = 1;
-	if (n)
-		seek_fork_2(data, philo, n);	
 	pthread_mutex_lock(&(data->fork[philo - 1]));
 	if (data->status == DIED || meal_handler(data, philo, 0))
 	{
@@ -96,13 +85,7 @@ void	seek_fork(t_data *data, int philo)
 	}
 	print_action(data, philo, FORK);
 	usleep(100);
-	if (n == 0)
-		seek_fork_2(data, philo, n);
-	else
-	{
-		if (data->status == DIED || meal_handler(data, philo, 1))
-			put_fork_back(data, philo);
-	}
+	seek_fork_2(data, philo);
 }
 
 void	put_fork_back(t_data *data, int philo)

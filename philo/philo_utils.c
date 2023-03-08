@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 14:50:23 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:30:36 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,15 +114,12 @@ int	init_threads(t_data *data, int n)
 		usleep(100);
 	}
 	if (pthread_create(&(data->id)[n], NULL, &death_checker, data) != 0)
-			return (1);
+		return (1);
 	n = 0;
-	while (n < data->philosophers)
+	while (n < data->philosophers + 1)
 	{
 		usleep(50);
 		pthread_join((data->id)[n++], NULL);
-		if (n == data->philosophers)
-			pthread_join((data->id)[n++], NULL);
-
 	}
 	free(data->id);
 	data->id = NULL;
