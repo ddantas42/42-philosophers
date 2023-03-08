@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:30:36 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:39:19 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	init_threads(t_data *data, int n)
 {
 	if (pthread_mutex_init(&(data->writing), NULL) != 0)
 		return (1);
-	n = 0;
 	data->id = (pthread_t *)malloc(sizeof(pthread_t) * data->philosophers + 1);
 	if (!(data->id))
 		return (1);

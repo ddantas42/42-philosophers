@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:13:48 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:41:04 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	print_action(t_data *data, int philo, int type)
 		pthread_mutex_unlock(&(data->writing));
 		return (1);
 	}
-	printf("%lld ", TIME);
+	printf("%lld ", (timeinmilliseconds() - data->init_time));
 	printf("%d ", philo);
 	if (type == FORK)
 		printf("has taken a fork\n");

@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:32:00 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/08 15:36:44 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	*death_checker(void *arg)
 		if (meal_handler(data, temp->philo, 0))
 			put_fork_back(data, temp->philo);
 		temp = temp->next;
-	}	
+	}
+	return (0);
 }
 
 int	thread_2(t_data *data, int current_philo)
