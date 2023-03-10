@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 10:40:18 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:44:54 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:32:30 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long long	meal_handler(t_data *data, int philo, int check)
 	temp = data->philo_lst;
 	while (temp && temp->philo != philo)
 		temp = temp->next;
-	time = (timeinmilliseconds() - data->init_time) - temp->last_ate;
+	time = (timeinmilliseconds() - temp->init_time) - temp->last_ate;
 	if (data->status == ALIVE && check > 0)
 	{
 		if (temp->last_ate > 0 && time > data->t_die)
@@ -47,7 +47,7 @@ int	philo_prep(t_data *data, int philo, int type)
 	while (temp && temp->philo != philo)
 		temp = temp->next;
 	if (type == EATING)
-		temp->last_ate = (timeinmilliseconds() - data->init_time);
+		temp->last_ate = (timeinmilliseconds() - temp->init_time);
 	if (type == EATING && data->status == ALIVE && data->t_die < data->t_eat)
 	{
 		usleep(data->t_die * 1000);

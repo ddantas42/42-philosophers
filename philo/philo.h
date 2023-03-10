@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:39:54 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:42:03 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:23:57 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct phil_lst
 	int				philo;
 	int				ate;
 	long long		last_ate;
+	long long		init_time;
 	struct phil_lst	*next;
 }				t_philo;
 

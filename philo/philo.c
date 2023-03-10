@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 15:37:32 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:51:26 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:23:15 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	*thread(void *arg)
 	int		current_philo;
 
 	data = ((t_data *) arg);
-	//data->init_time = timeinmilliseconds();
 	current_philo = data->thread;
 	while (data->status == ALIVE)
 	{

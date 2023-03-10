@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 15:52:04 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/08 15:52:47 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/10 09:27:23 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_philo	*init_lst(t_philo *lst, int philo)
 		new->ate = 0;
 		new->last_ate = 0;
 		new->philo = n;
+		new->init_time = timeinmilliseconds();
 		new->next = NULL;
 		if (temp != NULL)
 			temp->next = new;
@@ -106,7 +107,6 @@ int	init_threads(t_data *data, int n)
 	while (n < data->philosophers)
 	{
 		data->thread = n + 1;
-		data->init_time = timeinmilliseconds();
 		if (pthread_mutex_init(&(data->fork[n]), NULL) != 0)
 			return (1);
 		if (pthread_create(&(data->id)[n++], NULL, &thread, data) != 0)
