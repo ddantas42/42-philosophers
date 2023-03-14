@@ -12,20 +12,15 @@
 
 #include "philo.h"
 
-int	print_action(t_data *data, int philo, int type)
+int	print_action(t_data *data, t_philo *phil, int philo, int type)
 {
-	t_philo	*temp;
-
 	pthread_mutex_lock(&(data->writing));
 	if (data->status == DIED)
 	{
 		pthread_mutex_unlock(&(data->writing));
 		return (1);
 	}
-	temp = data->philo_lst;
-	while (temp && temp->philo != philo)
-		temp = temp->next;
-	printf("%lld ", (timeinmilliseconds() - temp->init_time));
+	printf("%lld ", (timeinmilliseconds() - phil->init_time));
 	printf("%d ", philo);
 	if (type == FORK)
 		printf("has taken a fork\n");
@@ -45,7 +40,7 @@ int	print_action(t_data *data, int philo, int type)
 	return (0);
 }
 
-void	seek_fork_2(t_data *data, int philo)
+void	seek_fork_2(t_data *data, int philo, t_philo *phil)
 {
 	if (philo == data->philosophers)
 	{
@@ -65,12 +60,12 @@ void	seek_fork_2(t_data *data, int philo)
 			return ;
 		}
 	}
-	print_action(data, philo, FORK);
+	print_action(data, phil, philo, FORK);
 	if (data->status == DIED || meal_handler(data, philo, 1))
 		put_fork_back(data, philo);
 }
 
-void	seek_fork(t_data *data, int philo)
+void	seek_fork(t_data *data, int philo, t_philo *phil)
 {
 	if (data->status == DIED || meal_handler(data, philo, 2))
 		return ;
@@ -81,9 +76,9 @@ void	seek_fork(t_data *data, int philo)
 		pthread_mutex_unlock(&(data->fork[philo - 1]));
 		return ;
 	}
-	print_action(data, philo, FORK);
+	print_action(data, phil, philo, FORK);
 	usleep(100);
-	seek_fork_2(data, philo);
+	seek_fork_2(data, philo, phil);
 }
 
 void	put_fork_back(t_data *data, int philo)

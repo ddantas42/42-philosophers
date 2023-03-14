@@ -26,33 +26,28 @@ long long	meal_handler(t_data *data, int philo, int check)
 		if (temp->last_ate > 0 && time > data->t_die)
 		{
 			usleep(data->t_die * 1000);
-			print_action(data, philo, DIED);
+			print_action(data, temp, philo, DIED);
 			return (1);
 		}
 		return (0);
 	}
 	if (data->status == ALIVE && time >= data->t_die)
 	{
-		print_action(data, philo, DIED);
+		print_action(data, temp, philo, DIED);
 		return (1);
 	}
 	return (0);
 }
 
-int	philo_prep(t_data *data, int philo, int type)
+int	philo_prep(t_data *data, int philo, int type, t_philo *phil)
 {
-	t_philo	*temp;
-
-	temp = data->philo_lst;
-	while (temp && temp->philo != philo)
-		temp = temp->next;
 	if (type == EATING)
-		temp->last_ate = (timeinmilliseconds() - temp->init_time);
+		phil->last_ate = (timeinmilliseconds() - phil->init_time);
 	if (type == EATING && data->status == ALIVE && data->t_die < data->t_eat)
 	{
 		usleep(data->t_die * 1000);
-		put_fork_back(data, temp->philo);
-		print_action(data, philo, DIED);
+		put_fork_back(data, phil->philo);
+		print_action(data, phil, philo, DIED);
 		return (1);
 	}
 	else if (type == SLEEPING && data->status == ALIVE)
@@ -61,13 +56,13 @@ int	philo_prep(t_data *data, int philo, int type)
 			return (0);
 		if (data->t_die - data->t_eat > 0)
 			usleep((data->t_die - data->t_eat) * 1000);
-		print_action(data, philo, DIED);
+		print_action(data, phil, philo, DIED);
 		return (1);
 	}
 	return (0);
 }
 
-int	ate_enough(t_data *data, int current_philo)
+int	ate_enough(t_data *data, int current_philo, t_philo *phil)
 {
 	t_philo	*temp;
 
@@ -75,10 +70,7 @@ int	ate_enough(t_data *data, int current_philo)
 		return (1);
 	if (data->must_eat < 0)
 		return (0);
-	temp = data->philo_lst;
-	while (current_philo > temp->philo)
-		temp = temp->next;
-	temp->ate++;
+	phil->ate++;
 	temp = data->philo_lst;
 	while (temp)
 	{

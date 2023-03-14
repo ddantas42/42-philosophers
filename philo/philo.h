@@ -60,9 +60,9 @@ int			ft_atoi_if(const char *str, int *n);
 int			ft_atoi(const char *str);
 
 /*			philo_action.c		*/
-int			print_action(t_data *data, int philo, int type);
-void		seek_fork_2(t_data *data, int philo);
-void		seek_fork(t_data *data, int philo);
+int			print_action(t_data *data, t_philo *phil, int philo, int type);
+void		seek_fork_2(t_data *data, int philo, t_philo *phil);
+void		seek_fork(t_data *data, int philo, t_philo *phil);
 void		put_fork_back(t_data *data, int philo);
 
 /*			philo_utils.c		*/
@@ -75,12 +75,12 @@ int			init_threads(t_data *data, int n);
 /*			philo_utils.c		*/
 int			last_action(t_data *data, int philo);
 long long	meal_handler(t_data *data, int philo, int check);
-int			philo_prep(t_data *data, int philo, int type);
-int			ate_enough(t_data *data, int current_philo);
+int			philo_prep(t_data *data, int philo, int type, t_philo *phil);
+int			ate_enough(t_data *data, int current_philo, t_philo *phil);
 
 /*			philo.c				*/
 void		*death_checker(void *arg);
-int			thread_2(t_data *data, int current_philo);
+int			thread_2(t_data *data, int current_philo, t_philo *phil);
 void		*thread(void *arg);
 
 #endif

@@ -30,16 +30,14 @@ void	*death_checker(void *arg)
 	return (0);
 }
 
-int	thread_2(t_data *data, int current_philo)
+int	thread_2(t_data *data, int current_philo, t_philo *philo)
 {
-	if (print_action(data, current_philo, SLEEPING))
+	if (print_action(data, philo, current_philo, SLEEPING))
 		return (1);
-	if (philo_prep(data, current_philo, SLEEPING))
+	if (philo_prep(data, current_philo, SLEEPING, philo))
 		return (1);
 	usleep(data->t_sleep * 1000);
-	if (meal_handler(data, current_philo, 0))
-		return (1);
-	if (print_action(data, current_philo, THINKING))
+	if (print_action(data, philo, current_philo, THINKING))
 		return (1);
 	return (0);
 }
@@ -47,22 +45,26 @@ int	thread_2(t_data *data, int current_philo)
 void	*thread(void *arg)
 {
 	t_data	*data;
+	t_philo	*philo;
 	int		current_philo;
 
 	data = ((t_data *) arg);
 	current_philo = data->thread;
+	philo = data->philo_lst;
+	while (philo && philo->philo != current_philo)
+		philo = philo->next;
 	while (data->status == ALIVE)
 	{
-		seek_fork(data, current_philo);
-		if (print_action(data, current_philo, EATING))
+		seek_fork(data, current_philo, philo);
+		if (print_action(data, philo, current_philo, EATING))
 			return (0);
-		if (philo_prep(data, current_philo, EATING))
+		if (philo_prep(data, current_philo, EATING, philo))
 			return (0);
 		usleep(data->t_eat * 1000);
 		put_fork_back(data, current_philo);
-		if (ate_enough(data, current_philo))
+		if (ate_enough(data, current_philo, philo))
 			return (0);
-		if (thread_2(data, current_philo))
+		if (thread_2(data, current_philo, philo))
 			return (0);
 	}
 	return (0);
