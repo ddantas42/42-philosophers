@@ -6,7 +6,7 @@
 /*   By: ddantas- <ddantas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:46 by ddantas-          #+#    #+#             */
-/*   Updated: 2023/03/10 09:30:59 by ddantas-         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:48:43 by ddantas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	seek_fork_2(t_data *data, int philo)
 	if (philo == data->philosophers)
 	{
 		pthread_mutex_lock(&(data->fork[0]));
-		if (data->status == DIED || meal_handler(data, philo, 0))
+		if (data->status == DIED)
 		{
 			put_fork_back(data, philo);
 			return ;
@@ -59,7 +59,7 @@ void	seek_fork_2(t_data *data, int philo)
 	else
 	{
 		pthread_mutex_lock(&(data->fork[philo]));
-		if (data->status == DIED || meal_handler(data, philo, 0))
+		if (data->status == DIED)
 		{
 			put_fork_back(data, philo);
 			return ;
@@ -72,18 +72,11 @@ void	seek_fork_2(t_data *data, int philo)
 
 void	seek_fork(t_data *data, int philo)
 {
-	if (data->philosophers == 1)
-	{
-		print_action(data, philo, FORK);
-		usleep(data->t_die * 1000);
-		print_action(data, philo, DIED);
-		return ;
-	}
 	if (data->status == DIED || meal_handler(data, philo, 2))
 		return ;
 	usleep(100);
 	pthread_mutex_lock(&(data->fork[philo - 1]));
-	if (data->status == DIED || meal_handler(data, philo, 0))
+	if (data->status == DIED)
 	{
 		pthread_mutex_unlock(&(data->fork[philo - 1]));
 		return ;
