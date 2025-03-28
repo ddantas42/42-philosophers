@@ -76,7 +76,10 @@ int	main(int ac, char **av)
 	int			n;
 
 	if ((ac != 5 && ac != 6))
-		return (0);
+	{
+		printf("Usage: ./phile [philosophers] [time to die] [time to eat] [time to sleep] [opt: Stops after X meals]\n");
+		return (1);
+	}
 	if (init_table(&data, ac, av))
 		return (1);
 	data.philo_lst = 0;

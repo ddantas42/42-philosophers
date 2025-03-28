@@ -69,8 +69,8 @@ void	seek_fork(t_data *data, int philo, t_philo *phil)
 {
 	if (data->status == DIED || meal_handler(data, philo, 2))
 		return ;
-	if (philo % 2 == 0)
-		usleep(5000);
+	// if (philo % 2 == 0)
+	// 	usleep(5000);
 	pthread_mutex_lock(&(data->fork[philo - 1]));
 	if (data->status == DIED)
 	{

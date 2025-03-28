@@ -70,7 +70,7 @@ t_philo	*init_lst(t_philo *lst, int philo)
 	return (lst);
 }
 
-int	init_table(t_data *data, int ac, char **av)
+int	 init_table(t_data *data, int ac, char **av)
 {
 	data->philosophers = ft_atoi(av[1]);
 	if (data->philosophers < 1)
